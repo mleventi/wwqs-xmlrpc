@@ -1,0 +1,88 @@
+Paths:
+  PG:                           "/home/mleventi/Documents/PerlProjects/pg"
+  latex:                        "/usr/bin/latex"
+  dvipng:                       "/usr/bin/dvipng"
+URLs:
+  Files:                        '/questionserver_files'
+  RPC:                          '/questionserver'
+ImageGenerator:
+  UseCache:                     1
+  Alignment:                    'absmiddle'
+PG:
+  modules:
+    - module:					DynaLoader 
+    - module:                   Exporter
+    - module:                   GD
+    - module:                   AlgParser
+      packages:
+        -                       AlgParserWithImplicitExpand
+        -                       Expr
+        -                       ExprWithImplicitExpand
+        -                       utf8
+    - module:                   AnswerHash
+      packages:
+        -                       AnswerEvaluator
+    - module:                   WWPlot
+    - module:                   Circle
+    - module:                   Complex
+    - module:                   Complex1
+    - module:                   Distributions
+    - module:                   Fraction
+    - module:                   Fun
+    - module:                   Hermite
+    - module:                   Label
+    - module:                   List
+    - module:                   Match
+    - module:                   MatrixReal1
+    - module:                   Matrix
+    - module:                   Multiple
+    - module:                   PGrandom
+    - module:                   Regression
+    - module:                   Select
+    - module:                   Units
+    - module:                   VectorField
+    - module:                   Parser
+      packages:
+        -                       Value
+    - module:                   "Parser::Value"	
+ProblemEnvironment:
+  psvn:							PSVN
+  psvnNumber:					PSVN
+  setNumber:					PSVN
+  probNum:						PROBNUM
+  questionNumber:				PROBNUM
+  fileName:						FILENAME
+  probFileName:					FILENAME
+  problemSeed:					1
+  displayMode:					HTML_dpng
+  languageMode:					HTML_dpng
+  outputMode:					HTML_dpng
+  displayHintsQ:				0
+  displaySolutionsQ:			0
+  texDisposition:				pdflatex
+  PROBLEM_GRADER_TO_USE:        avg_problem_grader
+  QUIZ_PREFIX:                  0
+  problemPreamble:
+    TeX:                        ""
+    HTML:                       ""
+  problemPostamble:
+    Tex:                        ""
+    HTML:                       ""
+  useOldAnswerMacros:           1
+  onTheFlyImageSize:            400
+  functAbsTolDefault:           .001
+  functLLimitDefault:           .0000001
+  functMaxConstantOfIntegration: 1E8
+  functNumOfPoints:             3
+  functRelPercentTolDefault:    .1,
+  functULimitDefault:           .9999999
+  functVarDefault:              "x"
+  functZeroLevelDefault:        1E-14
+  functZeroLevelTolDefault:     1E-12
+  numAbsTolDefault:             .001
+  numFormatDefault:             ""
+  numRelPercentTolDefault:      .1
+  numZeroLevelDefault:          1E-14
+  numZeroLevelTolDefault:       1E-12
+  useBaseTenLog:                0
+  defaultDisplayMatrixStyle:    "[s]"
