@@ -3,7 +3,6 @@ package QuestionServer;
 use YAML::XS qw(LoadFile);
 use Safe;
 
-no strict "refs";
 
 #what needs to be done at initialization
 BEGIN {
@@ -17,7 +16,7 @@ BEGIN {
     $QuestionServer::Settings->{Paths}->{Tmp} = $QuestionServer::RootPath . '/tmp';
     $QuestionServer::Settings->{Paths}->{HtdocsTmpEquations} = $QuestionServer::RootPath . '/htdocs/tmp/equations';
     $QuestionServer::Settings->{Paths}->{PGMacros} = $QuestionServer::Settings->{Paths}->{PG} . '/macros';
-    $QuestionServer::Settings->{URLs}->{HtdocsTmpEquations} = $QuestionServer::Settings->{URLs}->{Files} . '/tmp/equations';
+    $QuestionServer::Settings->{URLs}->{HtdocsTmpEquations} = $QuestionServer::Settings->{URLs}->{Base} . $QuestionServer::Settings->{URLs}->{Files} . '/tmp/equations';
 
     $QuestionServer::Settings->{PG}->{Directories} = {};
     $QuestionServer::Settings->{PG}->{Directories}->{root} = $QuestionServer::Settings->{Paths}->{PG};
@@ -54,7 +53,7 @@ sub RenderQuestion {
     my $translator = QuestionServer::Helper::BuildTranslator();
     my $imagegenerator = QuestionServer::Helper::BuildImageGenerator();
     QuestionServer::Helper::RunTranslator($translator,$imagegenerator,$request->{code},$request->{env});
-    QuestionServer::Helper::RunImageGenerator($imagegenerator);
+    QuestionServer::Helper::RunImageGenerator($translator,$imagegenerator);
     #return $translator->{envir};
     return QuestionServer::Helper::BuildQuestionResponse($translator);
 }

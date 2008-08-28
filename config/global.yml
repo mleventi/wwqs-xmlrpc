@@ -1,8 +1,9 @@
 Paths:
-  PG:                           "/opt/ww/pg"
+  PG:                           "/home/mleventi/Documents/PerlProjects/pg"
   latex:                        "/usr/bin/latex"
   dvipng:                       "/usr/bin/dvipng"
 URLs:
+  Base:                         'http://127.0.0.1/'
   Files:                        '/questionserver_files'
   RPC:                          '/questionserver'
 ImageGenerator:
@@ -44,7 +45,9 @@ PG:
     - module:                   Parser
       packages:
         -                       Value
-    - module:                   "Parser::Value"	
+    - module:                   Parser::Value
+    - module:                   Parser::Context
+    - module:                   Parser::Legacy
 ProblemEnvironment:
   psvn:							PSVN
   psvnNumber:					PSVN

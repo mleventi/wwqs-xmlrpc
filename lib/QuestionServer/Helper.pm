@@ -29,8 +29,7 @@ sub BuildImageGenerator {
         useCache => $QuestionServer::Settings->{ImageGenerator}->{UseCache},
         cacheDir => $QuestionServer::Settings->{Paths}->{HtdocsTmpEquations},
         cacheURL => $QuestionServer::Settings->{URLs}->{HtdocsTmpEquations},
-        cacheDB => "",
-        useMarkers => 0,
+        useMarkers => 1,
         dvipng_align =>$QuestionServer::Settings->{ImageGenerator}->{Alignment},
     );
     #DEFINE CLOSURE CLASS FOR IMAGE GENERATOR
@@ -44,13 +43,13 @@ sub RunTranslator {
     $source = decode_base64($source);
     #copy the defaults to this instance
     my %env = %{$QuestionServer::Settings->{ProblemEnvironment}};
-    my $envref = \%env;
+    my $envref = \%env; 
     #update with the instances from the passed in environment
     while ( my($key, $value) = each(%$environment) ) {
         $envref->{$key}= $value;
     }
     $envref->{imagegen} = new QuestionServer::RestrictedClosureClass($imagegenerator, "add");
-    #return $environment;  
+     
     #$translator->{safe} = new Safe;
     $translator->{envir} = undef;
     $translator->{safe} = new Safe();
@@ -58,7 +57,7 @@ sub RunTranslator {
 
     $translator->initialize();
 
-    eval{$translator->pre_load_macro_files(new Safe(),$QuestionServer::Settings->{Paths}->{PGMacros},'PG.pl', 'dangerousMacros.pl', 'IO.pl', 'PGbasicmacros.pl', 'PGanswermacros.pl')};
+    eval{$translator->pre_load_macro_files(new Safe(),$QuestionServer::Settings->{Paths}->{PGMacros},'PG.pl', 'dangerousMacros.pl', 'IO.pl', 'PGbasicmacros.pl', 'PGanswermacros.pl','MathObjects.pl')};
     #return $QuestionServer::Settings->{Paths}->{PGMacros};
     foreach (qw(PG.pl dangerousMacros.pl IO.pl)) {
         my $macroPath = $QuestionServer::Settings->{Paths}->{PGMacros} . "/$_";
@@ -150,8 +149,8 @@ sub CheckAnswers {
 }
 
 sub RunImageGenerator {
-    my($imagegenerator) = @_;
-    $imagegenerator->render();
+    my($translator,$imagegenerator) = @_;
+    $imagegenerator->render(body_text => $translator->r_text);
 }
 
 sub BuildQuestionResponse {
