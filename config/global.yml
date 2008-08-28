@@ -1,5 +1,5 @@
 Paths:
-  PG:                           "/home/mleventi/Documents/PerlProjects/pg"
+  PG:                           "/opt/ww/pg"
   latex:                        "/usr/bin/latex"
   dvipng:                       "/usr/bin/dvipng"
 URLs:
