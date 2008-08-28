@@ -54,8 +54,19 @@ sub RenderQuestion {
     my $imagegenerator = QuestionServer::Helper::BuildImageGenerator();
     QuestionServer::Helper::RunTranslator($translator,$imagegenerator,$request->{code},$request->{env});
     QuestionServer::Helper::RunImageGenerator($translator,$imagegenerator);
-    #return $translator->{envir};
     return QuestionServer::Helper::BuildQuestionResponse($translator);
+}
+
+sub RenderQuestionAndCheckAnswers {
+    my ($self,$request,$answers) = @_;
+    my $translator = QuestionServer::Helper::BuildTranslator();
+    my $imagegenerator = QuestionServer::Helper::BuildImageGenerator();
+    QuestionServer::Helper::RunTranslator($translator,$imagegenerator,$request->{code},$request->{env});
+    QuestionServer::Helper::RunImageGenerator($translator,$imagegenerator);
+    my $response = {};
+    $response->{answers} = QuestionServer::Helper::CheckAnswers($translator,$imagegenerator,$answers);
+    $response->{question} = BuildQuestionResponse($translator);
+    return $response;
 }
 
 1;

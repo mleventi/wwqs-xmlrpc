@@ -153,12 +153,16 @@ sub RunImageGenerator {
     $imagegenerator->render(body_text => $translator->r_text);
 }
 
+sub RunImageGeneratorAnswers {
+  my($imagegenerator) = @_;
+  $imagegenerator->render();
+}
+
 sub BuildQuestionResponse {
     my ($translator) = @_;
     my $response = {};
     $response->{errors} = $translator->errors;
     $response->{output} = encode_base64(${$translator->r_text});
-    $response->{seed} = 'asd';#$translator->{envir};
     $response->{grading} = $translator->rh_flags->{showPartialCorrectAnswers};
     return $response;
 }
